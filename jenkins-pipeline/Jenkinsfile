@@ -1,7 +1,10 @@
 pipeline {
     agent {
-        docker {image 'node:12.22.9-alpine'}
-        args '-u jenkins --privileged'
+        docker {
+            image 'node:12.22.9-alpine'
+            args '-u jenkins --privileged'
+        }
+        
     }
     stages {
         stage('Test') {
