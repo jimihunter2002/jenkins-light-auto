@@ -12,10 +12,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "jest": "^29.6.1"
-  },
   "jest": {
     "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "jest": "^27.0.0"
   }
 }

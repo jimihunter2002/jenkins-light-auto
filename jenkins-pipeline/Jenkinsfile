@@ -1,22 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Preparing node environment') {
-            steps {
-                dir('/home/ubuntu'){
-                sh 'set +ex'
-                sh 'export NVM_DIR="$HOME/.nvm"'
-                sh '. ~/.nvm/nvm.sh'
-                sh '. ~/.profile'
-                sh '. ~/.bashrc'
-                sh 'nvm use v18.16.1'
-                sh 'set -ex'
-                
-                }
-               
-            }
-           
-        }
         stage('Test') {
             steps {
                 sh 'nvm --version'
