@@ -7,12 +7,15 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "jest --verbose --runInBand --forceExit --detectOpenHandles"
+    "test": "jest --coverage --verbose --runInBand --forceExit --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.6.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
