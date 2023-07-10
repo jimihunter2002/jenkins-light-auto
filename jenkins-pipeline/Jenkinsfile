@@ -1,17 +1,24 @@
 pipeline {
     agent any
     stages {
+        stage('Preparing node environment') {
+            sh '''
+            set +ex
+            export NVM_DIR="$HOME/.nvm"
+            . ~/.nvm/nvm.sh
+            . ~/.profile
+            . ~/.bashrc
+            nvm use v18.16.1
+            set -ex
+            '''
+        }
         stage('Test') {
             steps {
-                sh '. ~/.nvm/nvm.sh'
-                sh '. ~/.profile'
-                sh '. ~/.bashrc'
                 sh 'nvm --version'
                 sh 'node --version'
                 sh 'echo $USER'
                 sh 'whoami' 
-                dir('jenkins-light-auto'){
-                
+                dir('jenkins-light-auto'){  
                     sh 'npm install'
                     sh 'npm test'
                 }               
