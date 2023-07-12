@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/average.test.js"
+    "test": "jest --coverage --verbose --runInBand --forceExit --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "dotenv": "^16.0.2"
+    "dotenv": "^16.0.2",
+    "jest": "^27.5.0"
   }
 }
