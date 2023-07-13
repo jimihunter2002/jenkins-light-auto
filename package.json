@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "jest --coverage --verbose --runInBand --forceExit --detectOpenHandles"
+    "test": "jest --coverage --verbose --runInBand --forceExit --detectOpenHandles",
+    "sonarqube-scanner": "node sonar-project.js",
+    "sonarqube-verify": "sonarqube-verify"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,8 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.2",
-    "jest": "^27.5.0"
+    "jest": "^27.5.0",
+    "sonarqube-scanner": "^3.0.1",
+    "sonarqube-verify": "^1.0.2"
   }
 }
