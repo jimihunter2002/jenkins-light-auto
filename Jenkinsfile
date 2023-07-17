@@ -18,9 +18,11 @@ pipeline {
                 sh 'node --version'
                 sh 'ls -ltr'
                 //install dependencies
-                dir('jenkins-light-auto')
-                sh 'npm install'
-                sh 'npm test'
+                dir('jenkins-light-auto'){
+                    sh 'npm install'
+                    sh 'npm test'       
+                }
+                
                 // dir('jenkins-light-auto'){  
                 //     sh 'npm install'
                 //     sh 'npm test'
