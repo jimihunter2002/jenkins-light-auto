@@ -1,34 +1,37 @@
 pipeline {
-    // agent {
-    //     docker {
-    //         image 'node:16.17.0-bullseye-slim'
-    //         args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
-    //     }
-    // }
-    agent any
-    stages {
-        stage('Checkout') {
-            steps {
-                sh 'echo passed'
-                //git branch: this step would be checked out anyways
-            }
-        }
-        stage('Build and Test') {
-            steps {
-                sh 'node --version'
-                sh 'ls -ltr'
-                //install dependencies
-                dir('jenkins-light-auto'){
-                    sh 'npm install'
-                    sh 'npm test'       
-                }
-                
-                // dir('jenkins-light-auto'){  
-                //     sh 'npm install'
-                //     sh 'npm test'
-                // }                 
-                
-            }
-        }
+  agent any
+
+  stages {
+    stage('Build') {
+      steps {
+        sh 'npm install'
+      }
     }
+
+    stage('Test') {
+      steps {
+        sh 'npm test'
+      }
+    }
+
+    stage('SonarQube Scan') {
+      steps {
+        withSonarQubeEnv('SonarQubeServer') {
+          sh 'npm run sonarqube'
+        }
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t jimi-jenkins-ci-image .'
+      }
+    }
+
+    stage('Push Docker Image') {
+      steps {
+        sh 'docker push jimi-jenkins-ci-image'
+      }
+    }
+  }
 }
