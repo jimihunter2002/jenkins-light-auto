@@ -22,11 +22,17 @@ pipeline {
 
     stage('SonarQube Scan') {
       steps {
-        withSonarQubeEnv('SonarQubeServer') {
-          sh 'npm run sonarqube'
-        }
+        sh 'npm run sonarqube-scan'
       }
     }
+
+    // stage('SonarQube Scan') {
+    //   steps {
+    //     withSonarQubeEnv('SonarQubeServer') {
+    //       sh 'npm run sonarqube'
+    //     }
+    //   }
+    // }
 
     stage('Build Docker Image') {
       steps {
