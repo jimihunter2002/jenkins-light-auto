@@ -13,6 +13,11 @@ pipeline {
         sh 'npm test'
       }
     }
+    stage('Sonar Scan') {
+      steps {
+        sh 'npm run sonarqube'
+      }
+    }
 
     stage('SonarQube Scan') {
       steps {
