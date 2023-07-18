@@ -36,15 +36,22 @@ pipeline {
     //   }
     // }
 
-    stage('Build Docker Image') {
+    stage("Build Docker Image") {
       steps {
-        sh 'docker build -t jimi-jenkins-ci-image .'
+        sh "docker build -t jimi-jenkins-ci-image ."
+
+        //Tag the docker image
+        sh "docker tag jimi-jenkins-ci-image $DHUB_UNAME/ultimate-cicd:latest"
       }
     }
 
     stage('Push Docker Image') {
       steps {
-        sh 'docker push jimi-jenkins-ci-image'
+        // sh 'docker push jimi-jenkins-ci-image'
+        withCredentials([usernamePassword(credentialsId: 'dockerHubCred', passwordVariable: 'DHUB_PWORD', usernameVariable: 'DHUB_UNAME')]){
+            sh 'docker login -u $DHUB_UNAME -p $DHUB_PWORD'
+        }
+        sh 'docker push $DHUB_UNAME/ultimate-cicd:latest'
       }
     }
   }
