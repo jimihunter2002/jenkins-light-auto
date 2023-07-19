@@ -55,7 +55,7 @@ pipeline {
     stage("Build Docker Image") {
       environment {
         
-        BUILD_NUMBER = "v12.0.1"
+        BUILD_NUMBER = "v13.0.1"
       }
       steps {
         sh "docker build -t jimi-jenkins-ci-image ."
@@ -68,7 +68,7 @@ pipeline {
     stage('Push Docker Image') {
       environment {
         
-        BUILD_NUMBER = "v12.0.1"
+        BUILD_NUMBER = "v13.0.1"
       }
       steps {
         // sh 'docker push jimi-jenkins-ci-image'
@@ -82,7 +82,7 @@ pipeline {
     stage('Update Deployment File') {
       environment {
         GIT_REPO_NAME = "jenkins-light-auto"
-        BUILD_NUMBER = "v12.0.1"
+        BUILD_NUMBER = "v13.0.1"
       }
       steps {
         withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
@@ -90,12 +90,9 @@ pipeline {
               git config user.email "jimi.hunter008@gmail.com"
               git config user.name "Jimi Hunter"
               sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" argo-cd/deployment.yml
-              git switch main
-              git merge ultimate-ci-cd
-              git switch ultimate-ci-cd
               git add argo-cd/deployment.yml
               git commit -m "New Update deployment image to version ${BUILD_NUMBER}"
-              git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+              git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:ultimate-ci-cd
           '''
         }
       }
