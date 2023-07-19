@@ -48,21 +48,29 @@ pipeline {
     }
 
     stage("Build Docker Image") {
+      environment {
+        
+        BUILD_NUMBER = "v7.0.1"
+      }
       steps {
         sh "docker build -t jimi-jenkins-ci-image ."
 
         //Tag the docker image
-        sh "docker tag jimi-jenkins-ci-image $DHUB_UNAME/ultimate-cicd:latest"
+        sh "docker tag jimi-jenkins-ci-image $DHUB_UNAME/ultimate-cicd:${BUILD_NUMBER}"
       }
     }
 
     stage('Push Docker Image') {
+      environment {
+        
+        BUILD_NUMBER = "v6.0.1"
+      }
       steps {
         // sh 'docker push jimi-jenkins-ci-image'
         withCredentials([usernamePassword(credentialsId: 'dockerHubCred', passwordVariable: 'DHUB_PWORD', usernameVariable: 'DHUB_UNAME')]){
             sh 'docker login -u $DHUB_UNAME -p $DHUB_PWORD'
         }
-        sh 'docker push $DHUB_UNAME/ultimate-cicd:latest'
+        sh 'docker push $DHUB_UNAME/ultimate-cicd:${BUILD_NUMBER}'
       }
     }
 
