@@ -26,9 +26,15 @@ pipeline {
       }
     }
 
-    stage('SonarQube Scan') {
-      steps {
-        sh 'npm run sonarqube'
+    // stage('SonarQube Scan') {
+    //   steps {
+    //     sh 'npm run sonarqube'
+    //   }
+    // }
+
+    stage('Try again') {
+      step {
+        sh 'sonar-scanner -Dsonar.host.url=${SONAR_SERVER} -Dsonar.login=${SONAR_TOKEN}'
       }
     }
 
