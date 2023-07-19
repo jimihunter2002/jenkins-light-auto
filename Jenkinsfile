@@ -1,12 +1,13 @@
 pipeline {
-//   agent {
-//     docker {
-//         image 'node:16'
-//         args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-//     }
-//   }
+  agent {
+    docker {
+        // image 'node:16'
+        image 'timbru31/java-node'
+        args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+    }
+  }
 
-  agent any
+//   agent any
 
   stages {
     stage('Build') {
