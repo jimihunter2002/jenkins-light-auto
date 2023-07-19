@@ -69,16 +69,16 @@ pipeline {
     stage('Update Deployment File') {
       environment {
         GIT_REPO_NAME = "jenkins-light-auto"
-        BUILD_NUMBER = "v2.0.1"
+        BUILD_NUMBER = "v5.0.1"
       }
       steps {
         withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
           sh '''
               git config user.email "jimi.hunter008@gmail.com"
               git config user.name "Jimi Hunter"
-              sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yml
-              git add deployment.yml
-              git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+              sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" argo-cd/deployment.yml
+              git add argo-cd/deployment.yml
+              git commit -m "New Update deployment image to version ${BUILD_NUMBER}"
               git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
           '''
         }
