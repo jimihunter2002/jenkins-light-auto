@@ -10,6 +10,11 @@ pipeline {
   agent any
 
   stages {
+    stage('Checkout') {
+      steps{
+        git branch: 'ultimate-ci-cd', url: 'https://github.com/jimihunter2002/jenkins-light-auto.git'
+      }
+    }
     stage('Build') {
       steps {
         sh 'node -v'
