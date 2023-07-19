@@ -34,6 +34,7 @@ pipeline {
 
     stage('Try again') {
       steps {
+        sh 'which sonar-scanner'
         sh 'sonar-scanner -Dsonar.host.url=${SONAR_SERVER} -Dsonar.login=${SONAR_TOKEN}'
       }
     }
