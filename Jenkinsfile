@@ -63,7 +63,7 @@ pipeline {
     stage('Push Docker Image') {
       environment {
         
-        BUILD_NUMBER = "v7.0.1"
+        BUILD_NUMBER = "v8.0.1"
       }
       steps {
         // sh 'docker push jimi-jenkins-ci-image'
