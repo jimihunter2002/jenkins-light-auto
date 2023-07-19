@@ -10,11 +10,11 @@ pipeline {
   agent any
 
   stages {
-    stage('Checkout') {
-      steps{
-        git branch: 'ultimate-ci-cd', url: 'https://github.com/jimihunter2002/jenkins-light-auto.git'
-      }
-    }
+    // stage('Checkout') {
+    //   steps{
+    //     git branch: 'ultimate-ci-cd', url: 'https://github.com/jimihunter2002/jenkins-light-auto.git'
+    //   }
+    // }
     stage('Build') {
       steps {
         sh 'node -v'
@@ -55,7 +55,7 @@ pipeline {
     stage("Build Docker Image") {
       environment {
         
-        BUILD_NUMBER = "v9.0.1"
+        BUILD_NUMBER = "v10.0.1"
       }
       steps {
         sh "docker build -t jimi-jenkins-ci-image ."
@@ -68,7 +68,7 @@ pipeline {
     stage('Push Docker Image') {
       environment {
         
-        BUILD_NUMBER = "v9.0.1"
+        BUILD_NUMBER = "v10.0.1"
       }
       steps {
         // sh 'docker push jimi-jenkins-ci-image'
@@ -82,7 +82,7 @@ pipeline {
     stage('Update Deployment File') {
       environment {
         GIT_REPO_NAME = "jenkins-light-auto"
-        BUILD_NUMBER = "v9.0.1"
+        BUILD_NUMBER = "v10.0.1"
       }
       steps {
         withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
