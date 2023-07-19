@@ -32,20 +32,20 @@ pipeline {
     //   }
     // }
 
-    stage('Try again') {
-      steps {
-        sh 'which sonar-scanner'
-        sh 'sonar-scanner -Dsonar.host.url=${SONAR_SERVER} -Dsonar.login=${SONAR_TOKEN}'
-      }
-    }
-
-    // stage('SonarQube Scan') {
+    // stage('Try again') {
     //   steps {
-    //     withSonarQubeEnv('SonarQubeServer') {
-    //       sh 'npm run sonarqube'
-    //     }
+    //     sh 'which sonar-scanner'
+    //     sh 'sonar-scanner -Dsonar.host.url=${SONAR_SERVER} -Dsonar.login=${SONAR_TOKEN}'
     //   }
     // }
+
+    stage('SonarQube Scan') {
+      steps {
+        withSonarQubeEnv('SonarQubeServer') {
+          sh 'npm run sonarqube'
+        }
+      }
+    }
 
     stage("Build Docker Image") {
       steps {
