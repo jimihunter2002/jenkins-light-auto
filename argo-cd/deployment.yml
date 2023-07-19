@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mytestapp
-        image: jimihunter007/ultimate-cicd:replaceImageTag
+        image: jimihunter007/ultimate-cicd:v8.0.1
         resources:
           limits:
             memory: "512Mi"
