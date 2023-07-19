@@ -10,6 +10,11 @@ pipeline {
   agent any
 
   stages {
+    // stage('Checkout') {
+    //   steps{
+    //     git branch: 'ultimate-ci-cd', url: 'https://github.com/jimihunter2002/jenkins-light-auto.git'
+    //   }
+    // }
     stage('Build') {
       steps {
         sh 'node -v'
@@ -50,7 +55,7 @@ pipeline {
     stage("Build Docker Image") {
       environment {
         
-        BUILD_NUMBER = "v8.0.1"
+        BUILD_NUMBER = "v11.0.1"
       }
       steps {
         sh "docker build -t jimi-jenkins-ci-image ."
@@ -63,7 +68,7 @@ pipeline {
     stage('Push Docker Image') {
       environment {
         
-        BUILD_NUMBER = "v8.0.1"
+        BUILD_NUMBER = "v11.0.1"
       }
       steps {
         // sh 'docker push jimi-jenkins-ci-image'
@@ -77,7 +82,7 @@ pipeline {
     stage('Update Deployment File') {
       environment {
         GIT_REPO_NAME = "jenkins-light-auto"
-        BUILD_NUMBER = "v8.0.1"
+        BUILD_NUMBER = "v11.0.1"
       }
       steps {
         withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
@@ -87,7 +92,7 @@ pipeline {
               sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" argo-cd/deployment.yml
               git add argo-cd/deployment.yml
               git commit -m "New Update deployment image to version ${BUILD_NUMBER}"
-              git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:ultimate-ci-cd
+              git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
           '''
         }
       }
