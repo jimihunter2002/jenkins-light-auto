@@ -8,7 +8,7 @@ sonarqubeScanner(
     options: {},
   },
   () => {
-    console.log('HERE is our sonar scanner', serverUrl);
+    console.log('Sonar scanner for quality analysis', serverUrl);
     process.exit();
   },
 );
