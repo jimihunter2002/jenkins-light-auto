@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mytestapp
+  labels:
+    app: mytestapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mytestapp
+  template:
+    metadata:
+      labels:
+        app: mytestapp
+    spec:
+      containers:
+      - name: mytestapp
+        image: jimihunter007/ultimate-cicd/replaceImageTag
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+
+
+    

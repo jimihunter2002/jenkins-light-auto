@@ -65,5 +65,23 @@ pipeline {
         sh 'docker push $DHUB_UNAME/ultimate-cicd:latest'
       }
     }
+
+    stage('Update Deployment File') {
+      environment {
+        GIT_REPO_NAME = "jenkins-light-auto"
+        BUILD_NUMBER = "v1.0.1"
+      }
+      steps {
+        withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+          sh '''
+              git config user.email "jimi.hunter008@gmail.com"
+              git config user.name "Jimi Hunter"
+              sed -i "s/replaceImageTag/${BUILD_NUMBER}" deployment.yml
+              git add deployment.yml
+              git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+              git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+        }
+      }
+    }
   }
 }
