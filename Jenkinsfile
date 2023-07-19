@@ -63,7 +63,7 @@ pipeline {
     stage('Push Docker Image') {
       environment {
         
-        BUILD_NUMBER = "v6.0.1"
+        BUILD_NUMBER = "v7.0.1"
       }
       steps {
         // sh 'docker push jimi-jenkins-ci-image'
@@ -77,7 +77,7 @@ pipeline {
     stage('Update Deployment File') {
       environment {
         GIT_REPO_NAME = "jenkins-light-auto"
-        BUILD_NUMBER = "v6.0.1"
+        BUILD_NUMBER = "v7.0.1"
       }
       steps {
         withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
