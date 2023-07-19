@@ -14,7 +14,7 @@ pipeline {
       steps {
         sh 'node -v'
         sh 'npm install'
-        sh 'java -v'
+        sh 'java --version'
         sh 'echo $USER'
         sh 'whoami'
       }
