@@ -17,7 +17,7 @@ spec:
       containers:
       - name: mytestapp
 <<<<<<< HEAD
-        image: jimihunter007/ultimate-cicd:replaceImageTag
+        image: jimihunter007/ultimate-cicd:v2.0.1
 =======
         image: jimihunter007/ultimate-cicd/v1.0.1
 >>>>>>> main
